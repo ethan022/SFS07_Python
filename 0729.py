@@ -15,10 +15,59 @@ class 클래스명:
     """
     pass
 
+# ============================================================
+# 1. Car 클래스 - @property와 캡슐화 개념
+# ============================================================
+
+
+class Car:
+    def __init__(self):
+        # __로 시작하는 변수는 클래스 외부에서 직접 접근할 수 없는 private 변수입니다.
+        self.__name = "차"  # 초기 이름은 "차"로 설정됩니다.
+
+    @property
+    def name(self):
+        """
+        Getter 메서드
+        - car.name 형태로 접근 가능하게 해줍니다.
+        - 함수처럼 보이지만 속성처럼 사용할 수 있도록 합니다.
+        """
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        """
+        Setter 메서드
+        - car.name = "자동차" 형태로 값을 설정할 수 있게 해줍니다.
+        - 외부에서 값을 안전하게 수정할 수 있도록 도와줍니다.
+        """
+        self.__name = name
+
+
+# ============================================================
+# Car 클래스 사용 예제
+# ============================================================
+
+print("========= 차 =======")
+
+# Car 객체 생성
+car = Car()
+
+# Getter 사용: car.name → 속성처럼 접근하지만 실제로는 함수입니다.
+print(car.name)  # 출력: 차
+
+# Setter 사용: car.name = "자동차" → 내부적으로 name.setter가 실행됩니다.
+car.name = "자동차"
+
+# 다시 Getter 사용
+print(car.name)  # 출력: 자동차
+
+print()  # 줄바꿈
 
 # ============================================================
 # 2. Person 클래스 - 생성자와 캡슐화 개념
 # ============================================================
+
 
 class Person:
     """
@@ -45,6 +94,11 @@ class Person:
         # 클래스 외부에서 직접 접근할 수 없음 (캡슐화)
         self.__name = name  # private 인스턴스 변수
         self.__age = age    # private 인스턴스 변수
+
+    # 소멸자
+    def __del__(self):
+        # 객체가 사라질때 자동으로 호출되는 메서드
+        print(f"삭제되었습니다.")
 
     def introduce(self):
         """
@@ -111,6 +165,8 @@ person1.age = 30        # age setter 호출
 # Getter를 이용한 값 조회
 print(f"변경된 이름: {person1.name}")  # name getter 호출
 print(f"변경된 나이: {person1.age}")   # age getter 호출
+
+del person1
 
 print()  # 줄바꿈
 
