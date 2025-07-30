@@ -155,7 +155,7 @@ with open("read_test.txt", "r", encoding="utf-8") as file:
 
 # 방법 4: for문으로 한 줄씩 처리 (메모리 효율적)
 print(f"\n📖 방법 4: for문으로 한 줄씩 처리 (권장)")
-with open("read_test.txt", "r", encoding="utf-8") as file:
+with open("example1.txt", "r", encoding="utf-8") as file:
     for line_num, line in enumerate(file, 1):
         print(f"{line_num}번째 줄: '{line.strip()}'")
 
@@ -207,6 +207,7 @@ print("-" * 40)
 
 def save_student_scores():
     """학생 성적을 파일에 저장"""
+    # 리스트 형식
     students = [
         {"name": "김철수", "korean": 85, "english": 90, "math": 78},
         {"name": "이영희", "korean": 92, "english": 88, "math": 95},
@@ -281,6 +282,7 @@ def read_csv_example():
             lines = file.readlines()
 
             # 헤더 분리
+            # [이름, 나이, 도시, 직업]
             header = lines[0].strip().split(',')
             print(f"CSV 헤더: {header}")
 
@@ -413,6 +415,7 @@ for i, practice in enumerate(best_practices, 1):
     print(f"💡 {i}. {practice}")
 
 # 생성된 테스트 파일들 정리
+# 확인시 주석 처리 해주세요.
 print(f"\n🗑️ 테스트 파일 정리:")
 test_files = [
     "example_basic.txt", "example_with.txt", "example_multiline.txt",
