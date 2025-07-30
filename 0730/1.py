@@ -340,3 +340,7 @@ for tip in tips:
 print("\n" + "=" * 60)
 print("🎉 Python 라이브러리 학습 완료!")
 print("=" * 60)
+
+numbers = random.sample(range(1, 46), 6)
+numbers.sort(reverse=False)
+print(numbers)
