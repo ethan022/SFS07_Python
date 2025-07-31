@@ -232,11 +232,116 @@ with open(file_path, "w", encoding="utf-8") as file:
             f"{i:<5}{row[0]:<5}{row[1]:<4}{row[2]:<4}{row[3]:<4}{float(row[4]):.3f}\n")
 
 # ✅ NumPy argsort 예제 (개념 설명용)
+# 1. np.argsort() 예제
+# 배열을 정렬했을 때, 정렬된 순서대로 원래 인덱스를 반환
 arr1 = np.array([3, 1, 4, 2, 5])
 
-# argsort는 정렬 시 원래 인덱스의 순서를 반환
-# [3, 1, 4, 2, 5] → 정렬하면 → [1, 2, 3, 4, 5]
-# 정렬된 값들의 원래 위치는 → [1, 3, 0, 2, 4]
+# 오름차순 정렬 결과는: [1, 2, 3, 4, 5]
+# 그 순서대로 원래의 인덱스는: [1, 3, 0, 2, 4]
 sorted_arr = np.argsort(arr1)
-print("sorted_arr: ", sorted_arr)        # [1 3 0 2 4]
-print("arr1: ", arr1[sorted_arr])        # [1 2 3 4 5]
+
+print("sorted_arr: ", sorted_arr)         # [1 3 0 2 4]
+print("arr1: ", arr1[sorted_arr])         # [1 2 3 4 5]
+print()
+
+# 2. 학생별 과목 점수 데이터
+scores = np.array([[85, 92, 78, 96],    # 김철수
+                   [88, 85, 90, 92],    # 이영희
+                   [90, 88, 85, 94]])   # 박민수
+
+students = ['김철수', '이영희', '박민수']
+subjects = ['국어', '수학', '영어', '과학']
+
+print("전체 점수 배열:")
+print(scores)
+print()
+
+# 2-1. 이영희(1번 인덱스)의 모든 과목 점수
+print("이영희의 점수:", scores[1])        # 방법 1
+print("이영희의 점수 (슬라이싱):", scores[1, :])  # 방법 2 (전체 열)
+print()
+
+# 2-2. 모든 학생의 수학 점수 (1번 열)
+print("수학 점수:", scores[:, 1])
+print()
+
+# 2-3. 90점 이상인 점수만 추출 (조건 필터링)
+high_score = scores[scores >= 90]
+print("90점 이상 점수:", high_score)
+print()
+
+# 2-4. 김철수의 영어 점수(2번 열)를 95점으로 수정
+scores[0, 2] = 95
+print("김철수 영어 점수 수정 후:")
+print(scores)
+print()
+
+
+# 3. 슬라이싱 예제: 리스트에서 부분 선택
+arr = [1, 2, 3, 4, 5]
+
+# 인덱스 1부터 2까지 → [2]
+print("arr[1:2]:", arr[1:2])
+
+# 인덱스 1부터 3까지 → [2, 3]
+print("arr[1:3]:", arr[1:3])
+
+# 처음부터 인덱스 3 전까지 → [1, 2, 3]
+print("arr[:3]:", arr[:3])
+
+# 인덱스 2부터 끝까지 → [3, 4, 5]
+print("arr[2:]:", arr[2:])
+
+# 인덱스 2부터 -1전까지 → [3, 4]
+print("arr[2:-1]:", arr[2:-1])
+
+# 처음부터 -1 전까지 → [1, 2, 3, 4]
+print("arr[:-1]:", arr[:-1])
+
+# -3부터 -1전까지 → [3, 4]
+print("arr[-3:-1]:", arr[-3:-1])
+
+# 2칸씩 건너뛰며 선택 → [1, 3, 5]
+print("arr[::2]:", arr[::2])
+
+# 거꾸로 뒤집기 → [5, 4, 3, 2, 1]
+print("arr[::-1]:", arr[::-1])
+print()
+
+
+# 4. 지점별 분기 매출 데이터
+sales = np.array([
+    [120, 135, 148, 162],  # 서울점
+    [98, 110, 125, 140],   # 부산점
+    [75, 82, 95, 110]      # 대구점
+])
+
+branches = ['서울점', '부산점', '대구점']
+quarters = ['1분기', '2분기', '3분기', '4분기']
+
+# 4-1. 각 지점별 최고 매출
+print("각 지점별 최고 매출:")
+print("행 기준 최대값 (지점별):",  np.max(sales, axis=1))
+print("열 기준 최대값 (분기별):",  np.max(sales, axis=0))
+print()
+
+for i, branch in enumerate(branches):
+    max_idx = np.argmax(sales[i])              # 해당 지점에서 최고 매출의 분기 인덱스
+    max_value = sales[i, max_idx]              # 최고 매출 금액
+    print(f"{branch}: {quarters[max_idx]} {max_value}만원")
+print()
+
+# 4-2. 전체에서 100만원 이상인 매출만 필터링
+high_sales = sales[sales >= 100]
+print("100만원 이상 매출만 추출:", high_sales)
+print()
+
+# 4-3. 서울지점(0번 행)의 2분기(1열), 4분기(3열) 매출 추출
+seoul_2_4 = sales[0, [1, 3]]
+print("서울점 2, 4분기 매출:", seoul_2_4)
+print()
+
+# 4-4. 모든 지점의 3분기(2열) 매출을 105로 수정
+sales[:, 2] = 105
+print("3분기 매출을 105로 수정 후:")
+print(sales)
