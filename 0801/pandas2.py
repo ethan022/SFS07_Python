@@ -403,3 +403,45 @@ a_class = students_data[((students_data["반"] == "A") &
                         (students_data["수학"] >= 80))]
 print(a_class[["이름", "반", "수학"]])
 print()
+
+products = pd.DataFrame({
+    '상품코드': ['A001', 'A002', 'B001', 'B002', 'C001'],
+    '상품명': ['노트북', '태블릿', '마우스', '키보드', '모니터'],
+    '가격': [1200000, 800000, 30000, 60000, 400000],
+    '재고': [20, 15, 100, 80, 25],
+    '브랜드': ['삼성', 'LG', '로지텍', '로지텍', '삼성']
+})
+
+print("=== 전체 상품 데이터 ===")
+print(products)
+print()
+
+# 1. loc으로 첫 번째와 세 번째 형 선택
+print("loc으로 첫 번째와 세 번째 형 선택:")
+print(products.loc[[0, 2]])
+print()
+
+# 2. .iloc으로 마지막 두 행 선택
+print(".iloc으로 마지막 두 행 선택:")
+print(products.iloc[-2:])
+print()
+
+# 3. loc으로 상품명과 가격 열만 선택
+print("loc으로 상품명과 가격 열만 선택:")
+print(products.loc[:, ['상품명', '가격']])
+print()
+
+# 4. .iloc으로 첫 3행의 마지막 2열
+print(".iloc으로 첫 3행의 마지막 2열:")
+print(products.iloc[0:3, -2:])
+print()
+
+# 5. .loc으로 가격 100000원 이상인 행의 상품명, 브랜드
+print("loc으로 가격 100000원 이상인 행의 상품명, 브랜드:")
+print(products.loc[products["가격"] >= 100000, ['상품명', '브랜드']])
+print()
+
+# 6. 브랜드가 '로지텍'인 상품의 모든 정보
+print("브랜드가 '로지텍'인 상품의 모든 정보:")
+print(products.loc[products["브랜드"] == '로지텍'])
+print()
